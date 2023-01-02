@@ -12,7 +12,7 @@ return new class extends Migration
      * @return void
      */
     public function up()
-    {
+    {    //
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('post_id')->references('id')->on('posts')->onDelete('cascade')->onUpdate('cascade');
