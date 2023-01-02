@@ -20,8 +20,8 @@ class CommentResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'user_id' => new UserResource(User::find('user_id')),
-            'post_id' => new PostResource(Post::find('post_id')),
+            'user' => new UserResource(User::find($this->user_id)),
+            'post' => new PostResource(Post::find($this->post_id)),
             'comment' => $this->comment
         ];
     }
