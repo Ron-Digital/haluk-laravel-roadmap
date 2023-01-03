@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -16,7 +17,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
-        
+
         return PostResource::collection($posts);
     }
 
@@ -29,7 +30,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $posts = Post::create([
-            "user_id"=>$request->user_id,
+            "user_id"=>Auth::user()->id,
             "title"=>$request->title,
             "description"=>$request->description,
         ]);
