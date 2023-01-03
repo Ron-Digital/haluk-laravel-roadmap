@@ -36,9 +36,9 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::controller(PostController::class)->prefix('posts')->group(function() {
-        Route::get('/', 'index');
+        Route::get('/', 'index')->middleware('expired.post');
         Route::post('/', 'store');
-        Route::get('/{post}', 'show');
+        Route::get('/{post}', 'show')->middleware('expired.post');
         Route::put('/{post}', 'update');
         Route::delete('/{post}', 'destroy');
     });

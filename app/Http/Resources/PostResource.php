@@ -21,7 +21,8 @@ class PostResource extends JsonResource
             'id' => $this->id,
             'user' => new UserResource(User::find($this->user_id)),
             'title' => $this->title,
-            'description' => $this->description
+            'description' => $this->description,
+            'created_at' => $this->created_at
         ];
     }
 }
