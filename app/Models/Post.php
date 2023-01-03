@@ -15,5 +15,8 @@ class Post extends Model
         'description',
     ];
 
-    
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'post_id');
+    }
 }
