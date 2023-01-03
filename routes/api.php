@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,10 +18,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
+Route::middleware('auth:sanctum')->group(function () {
 Route::controller(UserController::class)->prefix('users')->group(function() {
     Route::get('/', 'index');
     Route::post('/', 'store');
@@ -28,6 +30,9 @@ Route::controller(UserController::class)->prefix('users')->group(function() {
     Route::put('/{user}', 'update');
     Route::delete('/{user}', 'destroy');
 });
+
+Route::post('/auth/register', [AuthController::class, 'register']);
+Route::post('/auth/login', [AuthController::class, 'login']);
 
 Route::controller(PostController::class)->prefix('posts')->group(function() {
     Route::get('/', 'index');
@@ -43,4 +48,6 @@ Route::controller(CommentController::class)->prefix('comments')->group(function(
     Route::get('/{comment}', 'show');
     Route::put('/{comment}', 'update');
     Route::delete('/{comment}', 'destroy');
+});
+
 });

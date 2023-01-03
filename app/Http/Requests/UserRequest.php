@@ -41,4 +41,13 @@ class UserRequest extends FormRequest
                 ];
         }
     }
+
+    public function messages()
+    {
+        return[
+            'name.required' => 'Name is Must',
+            'email.required' => 'Email is must',
+            'password.min' => 'En az 6 haneli olmalı'
+        ];
+    }
 }
