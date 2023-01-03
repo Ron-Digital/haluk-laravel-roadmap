@@ -22,32 +22,33 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::middleware('auth:sanctum')->group(function () {
-Route::controller(UserController::class)->prefix('users')->group(function() {
-    Route::get('/', 'index');
-    Route::post('/', 'store');
-    Route::get('/{user}', 'show');
-    Route::put('/{user}', 'update');
-    Route::delete('/{user}', 'destroy');
-});
 
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 
-Route::controller(PostController::class)->prefix('posts')->group(function() {
-    Route::get('/', 'index');
-    Route::post('/', 'store');
-    Route::get('/{post}', 'show');
-    Route::put('/{post}', 'update');
-    Route::delete('/{post}', 'destroy');
-});
+Route::middleware('auth:sanctum')->group(function () {
+    Route::controller(UserController::class)->prefix('users')->group(function() {
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+        Route::get('/{user}', 'show');
+        Route::put('/{user}', 'update');
+        Route::delete('/{user}', 'destroy');
+    });
 
-Route::controller(CommentController::class)->prefix('comments')->group(function() {
-    Route::get('/', 'index');
-    Route::post('/', 'store');
-    Route::get('/{comment}', 'show');
-    Route::put('/{comment}', 'update');
-    Route::delete('/{comment}', 'destroy');
-});
+    Route::controller(PostController::class)->prefix('posts')->group(function() {
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+        Route::get('/{post}', 'show');
+        Route::put('/{post}', 'update');
+        Route::delete('/{post}', 'destroy');
+    });
+
+    Route::controller(CommentController::class)->prefix('comments')->group(function() {
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+        Route::get('/{comment}', 'show');
+        Route::put('/{comment}', 'update');
+        Route::delete('/{comment}', 'destroy');
+    });
 
 });

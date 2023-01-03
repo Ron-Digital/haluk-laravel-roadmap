@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class CommentController extends Controller
 {
@@ -29,15 +31,36 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        $comments = Comment::create([
-            "user_id"=>Auth::user()->id,
-            "post_id"=>$request->post_id,
-            "description"=>$request->description,
-        ]);
+        $rules = [
+            'post_id' => 'required|exists:posts,id',
+            'comment' => 'required|max:250'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if($validator->fails()) {
+            return response()->json([
+                'message' => $validator->errors()
+            ]);
+        }
+
+        $post = Post::withTrashed()->where('id', $request->post_id)->first();
+
+        if ($post->deleted_at == null) {
+            $comments = Comment::create([
+                "user_id"=>Auth::user()->id,
+                "post_id"=>$request->post_id,
+                "description"=>$request->description,
+            ]);
+
+            return response()->json([
+                'message' => 'Succesful',
+                'Comment' => new CommentResource($comments)
+            ]);
+        }
 
         return response()->json([
-            'message' => 'Succesful',
-            'Comment' => new CommentResource($comments)
+            'message' => 'Post not found',
         ]);
     }
 
