@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Events\FormSubmitted;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+
+Route::get('/receiver', function () {
+    return view('receiver');
+});
+
+Route::get('/sender', function () {
+    return view('sender');
+});
+
+Route::post('/sender', function () {
+    $text = request()->text;
+    event(new FormSubmitted($text));
+    return view('sender');
 });
