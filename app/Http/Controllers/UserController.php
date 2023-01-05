@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Notifications\Notify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 
 class UserController extends Controller
 {
@@ -18,7 +20,10 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return $users;
+
+        //Notification::send($user, new Notify);
+
+        return UserResource::collection($users);
     }
 
     /**

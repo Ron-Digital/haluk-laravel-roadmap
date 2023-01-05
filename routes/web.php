@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Events\FormSubmitted;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,11 @@ use App\Events\FormSubmitted;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+//Route::get('/', [UserController::class, 'index']);
 
 
 Route::get('/receiver', function () {

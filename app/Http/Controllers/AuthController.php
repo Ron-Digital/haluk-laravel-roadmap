@@ -6,9 +6,11 @@ use App\Events\UserRegistered;
 use App\Http\Controllers\Controller;
 use App\Listeners\UserRegistered as ListenersUserRegistered;
 use App\Models\User;
+use App\Notifications\Notify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -78,10 +80,19 @@ class AuthController extends Controller
             }
 
             $user = User::where('email', $request->email)->first();
+            
+            $name = $user->name;
+
+            $data = [
+                'name' => 'Congrats '. $name . ' '
+            ];
+
+            //Login olan user'a mail ile bildirim gönderme
+            Notification::send($user, new Notify($data));
 
             return response()->json([
                 'status' => true,
-                'message' => 'User Logged In Successfully',
+                'message' => 'User Logged In Successfully, look your E-Mail',
                 'token' => $user->createToken("API TOKEN")->plainTextToken
             ], 200);
 
