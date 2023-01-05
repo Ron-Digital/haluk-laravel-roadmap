@@ -54,6 +54,12 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        if (!$user) {
+            return response()->json([
+                'message' => 'User not found'
+            ]);
+        }
+        
         return response()->json([
             'user' => new UserResource($user)
         ]);
@@ -78,6 +84,12 @@ class UserController extends Controller
             "password"=> Hash::make($request->$password),
         ]);
 
+        if (!$user) {
+            return response()->json([
+                'message' => 'User not found'
+            ]);
+        }
+
         return response()->json([
             'message' => 'Succesful',
             'user' => new UserResource($user)
@@ -99,6 +111,9 @@ class UserController extends Controller
                 'message' => 'User not found'
             ]);
         }
+
+        $user->delete();
+
         return response()->json([
             'message' => 'User Deleted',
         ]);

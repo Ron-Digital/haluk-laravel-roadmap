@@ -72,6 +72,11 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
+        if (!$comment) {
+            return response()->json([
+                'message' => 'Comment not found'
+            ]);
+        }
         return $comment;
     }
 
@@ -94,6 +99,12 @@ class CommentController extends Controller
             "comment"=>$comment,
         ]);
 
+        if (!$comment) {
+            return response()->json([
+                'message' => 'Comment not found'
+            ]);
+        }
+
         return response()->json([
             'message' => 'Succesful',
             'post' => new CommentResource($comment)
@@ -108,6 +119,11 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
+        if (!$comment) {
+            return response()->json([
+                'message' => 'Comment not found'
+            ]);
+        }
         $comment->delete();
     }
 }

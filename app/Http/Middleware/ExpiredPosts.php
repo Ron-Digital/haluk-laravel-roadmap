@@ -32,11 +32,15 @@ class ExpiredPosts
         // return response()->json([
         //     'message' => 'There is no post with in 10 days'
         // ]);
-        if(Post::where('id', $request->route('post'))->where('active', '1')->first()){
+        $post= Post::where('active', '1')->first();
+
+        if($post){
             return $next($request);
         }
-        return response()->json([
-                'message' => 'There is no post with in 10 days'
+        if(!$post){
+            return response()->json([
+                'message' => 'Post not found'
             ]);
+        }
     }
 }
