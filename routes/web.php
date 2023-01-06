@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Events\FormSubmitted;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ItemSearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,15 @@ use App\Http\Controllers\UserController;
 
 //Route::get('/', [UserController::class, 'index']);
 
+//Route::get('items-lists', ItemSearchController::class, 'index')->name('items-lists');
+//Route::post('/create-item', ItemSearchController::class, 'create')->name('create-item');
+Route::get('/create-item',  function() {
+    return view('item-search');
+});
+
+Route::post('/create-item', [ItemSearchController::class,'create']);
+
+Route::get('/create-item', [ItemSearchController::class,'index']);
 
 Route::get('/receiver', function () {
     return view('receiver');
