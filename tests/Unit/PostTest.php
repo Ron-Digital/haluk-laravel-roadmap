@@ -16,12 +16,12 @@ class PostTest extends TestCase
     //     $this->assertTrue(true);
     // }
 
-    public function store()
+    public function register_test()
     {
-        $response = $this->call('POST', 'PostController\Store', [
-            'user_id' => 'Some post user_id 123',
-            'title' => 'Some post title 123',
-            'description' => 'Some post description 123'
+        $response = $this->post('/register', [
+            'name' => 'Some post user_id 123',
+            'email' => 'Some post title 123',
+            'password' => 'Some post description 123'
         ]);
 
         $response->assertStatus($response->status(), 200);

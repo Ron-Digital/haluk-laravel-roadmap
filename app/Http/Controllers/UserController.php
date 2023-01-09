@@ -7,6 +7,7 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Notifications\Notify;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 
@@ -59,7 +60,7 @@ class UserController extends Controller
                 'message' => 'User not found'
             ]);
         }
-        
+
         return response()->json([
             'user' => new UserResource($user)
         ]);
@@ -118,4 +119,11 @@ class UserController extends Controller
             'message' => 'User Deleted',
         ]);
     }
+    public function storeSecret(Request $request)
+    {
+        $request->user()->fill([
+            'token' => Crypt::encryptString($request->token),
+        ])->save();
+    }
+
 }
