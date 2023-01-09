@@ -47,11 +47,11 @@ class ItemSearchController extends Controller
     */
     public function create(Request $request)
     {
-        // $item = new Item();
-        // $item->title = $request -> title;
-        // $item -> create();
+        $item = new Item();
+        $item -> title = $request -> title;
+        $item -> save();
 
-        Item::create($request->title);
+        //Item::create($request->title);
 
 
         return redirect()->action([ItemSearchController::class, 'index']);

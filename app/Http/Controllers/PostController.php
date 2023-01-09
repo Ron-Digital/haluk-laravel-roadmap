@@ -7,6 +7,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
@@ -19,6 +20,8 @@ class PostController extends Controller
     {
         $posts = Post::all();
 
+        Log::warning('User is accessing all the Posts', ['user' => Auth::user()->id]);
+
         return PostResource::collection($posts);
     }
 
@@ -30,17 +33,23 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //Gate::authorize('is-my-post', $request);
-        $posts = Post::create([
-            "user_id"=>Auth::user()->id,
-            "title"=>$request->title,
-            "description"=>$request->description,
-        ]);
+        Log::warning('User is trying to create a post', ['user' => Auth::user()->id, 'data' => $request->except('password')]);
 
-        return response()->json([
-            'message' => 'Succesful',
-            'post' => new PostResource($posts)
-        ]);
+        //Gate::authorize('is-my-post', $request);
+        $post = new Post();
+        $post->title = $request->title;
+        $post->description = $request->description;
+        $post->user_id = Auth::user()->id;
+
+        if ($post->save()) {
+            Log::info('User create a single post successfully', ['user' => Auth::user()->id, 'post' => $post->id]);
+            return response()->json([
+                'message' => 'Succesful',
+                'post' => new PostResource($post)
+            ]);
+        }
+        Log::warning('Post could not be created caused by invalid post data', ['user' => Auth::user()->id, 'data' => $request->except('password')]);
+        return; // 422
     }
 
     /**
@@ -52,6 +61,8 @@ class PostController extends Controller
     public function show(Post $post)
     {
         Gate::authorize('is-my-post', $post);
+
+        Log::info('User is accessing a single post', ['user' => Auth::user()->id, 'post' => $post->id]);
 
         if (!$post) {
             return response()->json([
@@ -71,15 +82,15 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         //$user_id=$request->user_id;
-        $title=$request->title;
-        $description=$request->description;
+        $title = $request->title;
+        $description = $request->description;
 
         Gate::authorize('is-my-post', $post);
 
         $post = $post->update([
-            "user_id"=>Auth::user()->id,
-            "title"=>$title,
-            "description"=>$description,
+            "user_id" => Auth::user()->id,
+            "title" => $title,
+            "description" => $description,
         ]);
 
         if (!$post) {
@@ -104,11 +115,32 @@ class PostController extends Controller
     {
         Gate::authorize('is-my-post', $post);
 
-        if (!$post) {
+        Log::warning('User is trying to delete a single post', ['user' => Auth::user()->id, 'post' => $post]);
+
+        if ($post) {
+            Log::info('User deleted a single post successfully', ['user' => Auth::user()->id, 'post' => $post]);
+
+            $post->delete();
+
             return response()->json([
-                'message' => 'Post not found'
+                'message' => 'Post deleted'
             ]);
         }
-        $post->delete();
+
+        Log::error('Post not found by user for deleting', ['user' => Auth::user()->id, 'post' => $post]);
+        return; // 404
     }
 }
+
+// 'daily' => [
+//     'driver' => 'daily',
+//     'path' => storage_path('logs/laravel.log'),
+//     'level' => env('LOG_LEVEL', 'debug'),
+//     'days' => 14,
+//     'formatter' => MonologFormatterHtmlFormatter::class,
+//     'formatter_with' => [
+//       'dateFormat' => 'Y-m-d',
+//     ]
+//   ],
+
+// config/logging.php
