@@ -36,9 +36,9 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $users = User::create([
-            "name"=>$request->name,
-            "email"=>$request->email,
-            "password"=> Hash::make($request->password),
+            "name" => $request->name,
+            "email" => $request->email,
+            "password" => Hash::make($request->password),
         ]);
 
         return response()->json([
@@ -75,14 +75,14 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        $name=$request->fullname;
-        $email=$request->email;
-        $password=$request->password;
+        $name = $request->fullname;
+        $email = $request->email;
+        $password = $request->password;
 
         $user = $user->update([
-            "name"=>$name,
-            "email"=>$email,
-            "password"=> Hash::make($request->$password),
+            "name" => $name,
+            "email" => $email,
+            "password" => Hash::make($request->$password),
         ]);
 
         if (!$user) {
@@ -125,5 +125,4 @@ class UserController extends Controller
             'token' => Crypt::encryptString($request->token),
         ])->save();
     }
-
 }

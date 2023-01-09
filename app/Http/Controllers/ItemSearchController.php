@@ -14,13 +14,13 @@ class ItemSearchController extends Controller
      * Get the index name for the model.
      *
      * @return string
-    */
+     */
     public function index(Request $request)
     {
-        if($request->has('titlesearch')){
+        if ($request->has('titlesearch')) {
             $items = Item::search($request->titlesearch)->paginate(6);
             print_r(json_encode(Item::search('')->paginate(6)));
-        }else{
+        } else {
             $items = Item::paginate(6);
         }
         return view('item-search', compact('items'));
@@ -33,7 +33,7 @@ class ItemSearchController extends Controller
         $sortBy = $request->sortBy ? $request->sortBy : 'created_at';
         $sortDesc = $request->sortDesc ? 'desc' : 'asc';
 
-        $posts = Post::where($search,'LIKE',"%".  $request->search . "%")->orderBy($sortBy,$sortDesc)->paginate($request->limit);
+        $posts = Post::where($search, 'LIKE', "%" .  $request->search . "%")->orderBy($sortBy, $sortDesc)->paginate($request->limit);
 
         return response()->json([
             'meta' => $this->meta($posts),
@@ -44,12 +44,12 @@ class ItemSearchController extends Controller
      * Get the index name for the model.
      *
      * @return string
-    */
+     */
     public function create(Request $request)
     {
         $item = new Item();
-        $item -> title = $request -> title;
-        $item -> save();
+        $item->title = $request->title;
+        $item->save();
 
         //Item::create($request->title);
 

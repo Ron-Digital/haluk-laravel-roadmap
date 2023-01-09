@@ -38,7 +38,7 @@ class CommentController extends Controller
 
         $validator = Validator::make($request->all(), $rules);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return response()->json([
                 'message' => $validator->errors()
             ]);
@@ -48,9 +48,9 @@ class CommentController extends Controller
 
         if ($post->deleted_at == null) {
             $comments = Comment::create([
-                "user_id"=>Auth::user()->id,
-                "post_id"=>$request->post_id,
-                "comment"=>$request->comment,
+                "user_id" => Auth::user()->id,
+                "post_id" => $request->post_id,
+                "comment" => $request->comment,
             ]);
 
             return response()->json([
@@ -89,14 +89,14 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        $user_id=$request->user_id;
-        $post_id=$request->post_id;
-        $comment=$request->comment;
+        $user_id = $request->user_id;
+        $post_id = $request->post_id;
+        $comment = $request->comment;
 
         $comment = $comment->update([
-            "user_id"=>$user_id,
-            "post_id"=>$post_id,
-            "comment"=>$comment,
+            "user_id" => $user_id,
+            "post_id" => $post_id,
+            "comment" => $comment,
         ]);
 
         if (!$comment) {
