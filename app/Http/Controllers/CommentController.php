@@ -50,7 +50,7 @@ class CommentController extends Controller
             $comments = Comment::create([
                 "user_id"=>Auth::user()->id,
                 "post_id"=>$request->post_id,
-                "description"=>$request->description,
+                "comment"=>$request->comment,
             ]);
 
             return response()->json([
