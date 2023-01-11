@@ -7,6 +7,8 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+![image](https://user-images.githubusercontent.com/67504077/211742101-e03dd97c-f399-4cea-9db6-0ce2ddf82664.png)
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
@@ -21,46 +23,57 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+## Service Provider
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Laravel hizmet kapsayıcısı, sınıf bağımlılıklarını yönetmek ve bağımlılık enjeksiyonu gerçekleştirmek için güçlü bir araçtır. Bağımlılık enjeksiyonu, esasen şu anlama gelen süslü bir deyimdir: sınıf bağımlılıkları, yapıcı veya bazı durumlarda "ayarlayıcı" yöntemleri aracılığıyla sınıfa "enjekte edilir".
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Service Container
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Servis sağlayıcılar, tüm Laravel uygulama önyükleme işlemlerinin merkezi yeridir. Laravel'in tüm temel hizmetlerinin yanı sıra kendi uygulamanız, hizmet sağlayıcılar aracılığıyla önyüklenir.
 
-## Laravel Sponsors
+Ancak, "önyüklemeli" ile ne demek istiyoruz? Genel olarak, hizmet kapsayıcısı bağlamalarının, olay dinleyicilerinin, ara katman yazılımının ve hatta yolların kaydedilmesi dahil olmak üzere bir şeylerin kaydedilmesini kastediyoruz. Hizmet sağlayıcılar, uygulamanızı yapılandırmak için merkezi yerdir.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Laravel'in içerdiği dosyayı açarsanız (config/app.php) göreceksiniz. Bunların tümü, uygulamanız için yüklenecek olan hizmet sağlayıcı sınıflarıdır. Varsayılan olarak, bu dizide bir dizi Laravel çekirdek hizmet sağlayıcısı listelenir. Bu sağlayıcılar, posta gönderici, sıra, önbellek ve diğerleri gibi temel Laravel bileşenlerini önyükler. Bu sağlayıcıların çoğu "ertelenmiş" sağlayıcılardır, yani her istekte yüklenmeyecekler, yalnızca sağladıkları hizmetlere gerçekten ihtiyaç duyulduğunda yükleneceklerdir.
 
-### Premium Partners
+## Facades
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Laravel belgeleri boyunca, "cepheler" aracılığıyla Laravel'in özellikleriyle etkileşime giren kod örneklerini göreceksiniz. Cepheler, uygulamanın hizmet kapsayıcısında bulunan sınıflara "statik" bir arabirim sağlar . Laravel, Laravel'in neredeyse tüm özelliklerine erişim sağlayan birçok cepheye sahip olarak gönderilir.
 
-## Contributing
+Laravel cepheleri, geleneksel statik yöntemlerden daha fazla test edilebilirlik ve esneklik sağlarken, kısa ve anlamlı bir sözdiziminin faydasını sağlayarak, hizmet konteynerindeki temel sınıflara "statik proxy'ler" olarak hizmet eder. 
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Package
 
-## Code of Conduct
+Laravel, web uygulamaları için en popüler çerçevelerden biridir ve basit ve hızlı bir geliştirme ortamı sunar. Daha fazla işlevsellik eklemenizi sağlayan paketlere sahiptir. Bu paketler, bir Laravel uygulamasını geliştirmek için rotalara, denetleyicilere, görünümlere ve yapılandırmalara sahiptir.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Laravel paketleri, ilişkisel veritabanlarına erişmenin farklı yollarını kullanmanıza ve bağımlılık enjeksiyonları gerçekleştirmenize izin verir. Şu anda, rezervasyon ve seyahatten e-Ticaret ve eğitime kadar her türlü işlevi sunan 500'den fazla Laravel paketimiz var.
 
-## Security Vulnerabilities
+Laravel, birkaç görünüm, denetleyici veya model içeren paketler gibi davranan modüllere sahiptir. Bu modül veya paket Laravel'de korunur ve test edilir ve artık korunmayan, yeniden yayınlanmış, yeniden düzenlenmiş ve sürdürülen bir masa tenisi/modül sürümü olabilir. AsgardCMS'de de kullanılmaktadır .
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Laravel Paket Yöneticisi, Laravel projeniz için hızlı ama basit paket yönetimi sağlar. Bir paketi besteci aracılığıyla hızlı bir şekilde kurmanıza izin verir ve ardından paket tarafından verilen Hizmet Sağlayıcıların ve Dış Mekanların herhangi birini veya tümünü otomatik olarak kaydeder.
 
-## License
+## CI/CD
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+CI/CD ve Envoy ile Laravel uygulamasını dağıtın
+Bu yazıda Sürekli Entegrasyon ve Sürekli Dağıtım hakkında bilgi edineceksiniz.
+Asıl entegrasyona geçmeden önce, CI/CD'nin temel kavramını anlayalım . CI/CD , Sürekli Entegrasyon( CI ) ve Sürekli Dağıtım( CD ) anlamına gelir. CI/CD, herhangi bir zamanda güncellemeleri yayınlayabileceğiniz bir yazılım geliştirme yöntemidir.
+
+Sürekli Entegrasyona (CI) Giriş:
+Sürekli Entegrasyon (CI), geliştiricilerin günde birçok kez kodu entegre etmesini/kodu git deposuna işlemesini gerektiren bir geliştirme uygulamasıdır. git deposuna yapılan her gönderim, otomatik bir derleme betiği tarafından doğrulanır, geliştiricilerin sorunları erkenden tespit etmesine ve yeni hatalar ortaya çıkarma şansını azaltmasına olanak tanır.
+
+Sürekli Entegrasyon, genellikle bir ana şubeye, ardından özel bir sunucuya yapılan bir "git push" sonrasında gerçekleşir, otomatik bir süreç uygulamayı oluşturur ve bir dizi test çalıştırır. bir ana daldaki bir uygulamaya gönderilen her değişiklik, otomatik olarak ve sürekli olarak oluşturulur ve test edilir.
+
+Sürekli Dağıtıma Giriş(CD)
+Sürekli Dağıtım, yazılım işlevlerinin otomatikleştirilmiş dağıtım süreci aracılığıyla teslim edildiği bir yaklaşımdır. Sürekli Dağıtım yöntemi, kodun otomatik olarak kontrol edilmesini sağlar ancak değişikliklerin bir sunucuda dağıtımını manuel olarak tetiklemek için insan müdahalesi gerektirir.
+
+## Caching
+
+Uygulamanız tarafından gerçekleştirilen veri alma veya işleme görevlerinden bazıları CPU'yu yoğun kullanabilir veya tamamlanması birkaç saniye sürebilir. Bu durumda, alınan verilerin bir süreliğine önbelleğe alınması yaygın bir uygulamadır, böylece aynı veriler için sonraki isteklerde hızlı bir şekilde alınabilir. Önbelleğe alınan veriler genellikle Memcached veya Redis gibi çok hızlı bir veri deposunda saklanır .
+
+Neyse ki Laravel, çeşitli önbellek arka uçları için etkileyici, birleşik bir API sunarak, onların çarpıcı hızlı veri alma avantajlarından yararlanmanıza ve web uygulamanızı hızlandırmanıza olanak tanır.
+
+## Architecture
+
+![image](https://user-images.githubusercontent.com/67504077/211740042-c2bdd9b5-3fe0-4e12-b920-d303c135382d.png)
+
+![image](https://user-images.githubusercontent.com/67504077/211740197-538ac244-74a9-4aa3-a639-4b1382568d90.png)
+
