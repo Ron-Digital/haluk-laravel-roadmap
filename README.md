@@ -75,5 +75,6 @@ Neyse ki Laravel, çeşitli önbellek arka uçları için etkileyici, birleşik 
 
 ![image](https://user-images.githubusercontent.com/67504077/211740042-c2bdd9b5-3fe0-4e12-b920-d303c135382d.png)
 
+
 ![image](https://user-images.githubusercontent.com/67504077/211740197-538ac244-74a9-4aa3-a639-4b1382568d90.png)
 
