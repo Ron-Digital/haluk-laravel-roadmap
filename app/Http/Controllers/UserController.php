@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Cache;
 
 class UserController extends Controller
 {
@@ -20,11 +21,13 @@ class UserController extends Controller
      */
     public function index()
     {
+        $value = Cache::get('key', 'default');
+
         $users = User::all();
 
-        //Notification::send($user, new Notify);
-
         return UserResource::collection($users);
+
+        //Notification::send($user, new Notify);
     }
 
     /**
